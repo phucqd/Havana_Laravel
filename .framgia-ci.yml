@@ -22,6 +22,9 @@ test:
     command: phpmetrics --report-html=.framgia-ci-reports/metrics.html
       --report-xml=.framgia-ci-reports/metrics.xml
       app
+  phpcs:
+    ignore: false
+    command: phpcs --standard=Framgia --report-checkstyle=.framgia-ci-reports/phpcs.xml --ignore=app/Supports/* app
   phpunit:
     ignore: false
     command:
