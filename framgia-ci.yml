@@ -1,3 +1,4 @@
+
 build:
   phpunit:
     image: dangminhtruong/dockerlarav:latest
@@ -6,6 +7,7 @@ build:
     - composer install
     - php artisan migrate
     - php artisan db:seed
+    - echo '' | phpcs --standard=Framgia app
     - framgia-ci run --local
 services:
   mysql:
