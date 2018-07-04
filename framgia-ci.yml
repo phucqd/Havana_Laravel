@@ -3,12 +3,12 @@ build:
   phpunit:
     image: dangminhtruong/dockerlarav:latest
     commands:
-    - cp .env.testing.example .env
+    - cp .env.civ3.example .env
+    - php artisan config:clear
     - composer install
-    - php artisan migrate
-    - php artisan db:seed
-    - echo '' | phpcs --standard=Framgia app
-    - framgia-ci run --local
+    - framgia-ci test-connect mysql_test 3306 60
+    - php artisan migrate --database=mysql_test
+    - framgia-ci run
 services:
   mysql:
     image: mysql:5.7
@@ -17,9 +17,21 @@ services:
       MYSQL_USER: homestead
       MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: root
+  mysql_test:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: homestead_test
+      MYSQL_USER: homestead_test
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: root
+cache:
+  mount:
+    - .git
+    - vendor
+    - node_modules
 deploy:
   docker:
     username: octocat
     password: password
-    email: xdangminhtruongx@gmail.com
+    email: dangminhtruong@gmail.com
     repo: dangminhtruong/Havana_Laravel
