@@ -30,7 +30,7 @@ cache:
     - node_modules
 deploy:
   docker:
-    username: octocat
+    username: phuc
     password: password
     email: dangminhtruong@gmail.com
     repo: dangminhtruong/Havana_Laravel
